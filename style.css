@@ -348,9 +348,13 @@ template {
   display: none;
 }
 
-
+:root{
+  --powderBlue : #93B5C6;
+  --lilacAsh :#B0A1BA;
+  --celadon: #B8E2C8;
+}
 .main-wrapper{
-    background-color: aquamarine;
+    background-color: var(--powderBlue);
     height: 100dvh;
     display: flex;
     justify-content: center;
@@ -365,7 +369,7 @@ template {
     gap:3rem;
 }
 .game-container{
-    background-color: aliceblue;;
+    background-color: rgb(143, 160, 175, 0.5);;
     width:400px;
     height: 400px;
     display: grid;
@@ -383,7 +387,7 @@ template {
     display:flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(215, 153, 230);
+    background-color: var(--celadon);
     height: 100%;
     width: 100%;
     justify-content: center;
@@ -394,13 +398,14 @@ template {
 }
 
 .cell:hover{
-   
+    box-shadow: 0.5rem 0.5rem 0.5px rgba(0, 0, 0, 0.2);
     transform: scale(1.1);
 }
 
 .cell:active{
-    background-color: rgba(204, 48, 218, 0.6);
-    box-shadow: 5rem;;
+    background-color: rgba(218, 190, 48, 0.6);
+
+    box-shadow: 2rem;
 }
 
 

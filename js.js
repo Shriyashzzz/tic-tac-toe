@@ -32,8 +32,9 @@ const gameBoard = (function(){
 
     const invokeIfWon = (id, winningIndexString) =>{
         console.log(`player${id} won at`, winningIndexString)
+        userUI.setPlayerinfo(`Player ${userUI.getUserPlayerName(id)} wins!`);
         userUI.disableButton();
-        userUI.setPlayerinfo(`Player ${id} wins!`);
+        
     }
 
     const checkIfWon = (id, givenBoard) =>{
@@ -47,18 +48,23 @@ const gameBoard = (function(){
                 if(i == j) diagonalSameSum += givenBoard[i][j];
             }
             if(rowSum == 3 || rowSum == 6){
-                invokeIfWon(id, `[${i}][0],[${i}][1],[${i}][2]`); return;
+                invokeIfWon(id, `[${i}][0],[${i}][1],[${i}][2]`);
+                return true;
             }
             if(colSum == 3 || colSum == 6){
-                invokeIfWon(id, `[0][${i}],[1][${i}],[2][${i}]`); return;
+                invokeIfWon(id, `[0][${i}],[1][${i}],[2][${i}]`); 
+                return true;
             }
         }
         if(diagonalSameSum == 3 || diagonalSameSum == 6){
-            invokeIfWon(id, `[0][0],[1][1],[2][2]`); return;
+            invokeIfWon(id, `[0][0],[1][1],[2][2]`); 
+            return true;
         }
         let antiDiag = givenBoard[0][2] + givenBoard[1][1] + givenBoard[2][0];
         if(antiDiag == 3 || antiDiag == 6){
-            invokeIfWon(id, `[0][2],[1][1],[2][0]`); return;
+            invokeIfWon(id, `[0][2],[1][1],[2][0]`); 
+            return true;
+            
         }
     }
 
@@ -67,7 +73,9 @@ const gameBoard = (function(){
         const playerOwnInputArray = Array.from({length: 3}, () => Array(3).fill(undefined));
         const inputValue = (row, col) =>{
             setValue(playerid, row, col, playerOwnInputArray);
-            checkIfWon(playerid, playerOwnInputArray);
+            if(checkIfWon(playerid, playerOwnInputArray) ==true){
+                return true;
+            };
         }
         return {playerid, inputValue, getValueAt}
     }
@@ -106,12 +114,18 @@ const userUI = (function(){
             return;
         }
         if(gameBoard.getEvenOddCounter() % 2 != 0){
-            gameBoard.player1.inputValue(hitIndex[0], hitIndex[1]);
+            if(gameBoard.player1.inputValue(hitIndex[0], hitIndex[1]) ==true){
+                button.textContent = "X";  
+                return;
+            }
             gameBoard.incerementEvenOddCounter();
             button.textContent = "X";
             setPlayerinfo(`${playerTwoName} Turn`);
-        } else {
-            gameBoard.player2.inputValue(hitIndex[0], hitIndex[1]);
+        } else if(gameBoard.getEvenOddCounter() % 2 == 0){
+            if(gameBoard.player2.inputValue(hitIndex[0], hitIndex[1]) ==true){
+                button.textContent = "O";
+                return;
+            }
             button.textContent = "O";
             gameBoard.incerementEvenOddCounter();
             setPlayerinfo(`${playerOneName} Turn`);
@@ -126,6 +140,13 @@ const userUI = (function(){
         gameInfo.textContent = info;
     }
 
+    const getUserPlayerName = (id) =>{
+        if(id ==1){
+            return playerOneName;
+        }else{
+            return playerTwoName;
+        }
+    }
     const setPlayerName = (player1, player2) =>{
         playerOneName = player1;
         playerTwoName = player2;
@@ -139,7 +160,7 @@ const userUI = (function(){
         clickBtn.forEach(button => button.disabled = false);
     }
 
-    return {startGame, disableButton, enableButtons, setPlayerName, setPlayerinfo, clickBtn}
+    return {startGame, disableButton, enableButtons, setPlayerName, setPlayerinfo,getUserPlayerName, clickBtn}
 })();
 
 
