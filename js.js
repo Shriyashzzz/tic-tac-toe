@@ -36,6 +36,7 @@ const gameBoard = (function(){
     const invokeIfWon = (id,winningIndexString ) =>{
         console.log(`player${id} won by choosing values at `,winningIndexString )
         userUI.disableButton();
+        
     }
     const checkIfWon = (id, givenBoard)  =>{
         console.log("checkIfWon starting");
@@ -111,11 +112,12 @@ const gameBoard = (function(){
 
 const userUI =( function(){
     const clickBtn = document.querySelectorAll(".cell");
-    const playerOneName = "Shriyash";
-    const playerTwoName ="Bunga";
+    let playerOneName = "";
+    let playerTwoName ="";
+    const gameInfo= document.querySelector(".gameInfo");
+
     function startGame(){
         let even0ddCounter = 1;
-        const gameInfo= document.querySelector(".gameInfo");
         gameInfo.textContent = `${playerOneName} Turn`;
         clickBtn.forEach((button) => button.addEventListener('click', ()=>{
             let hitIndex = button.dataset.id.split(',');
@@ -143,12 +145,17 @@ const userUI =( function(){
             
         }))
 
-        const setPlayerinfo = (info) =>{
-            gameInfo.textContent = info;
+        
+               
+    }
 
+    const setPlayerinfo = (info) =>{
+            gameInfo.textContent = info;
         }
 
-        
+    const setPlayerName = (player1, player2) =>{
+        playerOneName = player1;
+        playerTwoName =player2;
     }
     const disableButton = () =>{
             clickBtn.forEach((button) =>{
@@ -162,21 +169,35 @@ const userUI =( function(){
         })
         
     }
-    return{startGame, disableButton, enableButtons}
+    return{startGame, disableButton, enableButtons, setPlayerName, setPlayerinfo}
   
 
 })();
 
+const uiController = (function(){
+    const startBtn = document.querySelector(".Start")
+    const resetBtn = document.querySelector(".Reset")
+    userUI.disableButton()
+    const submitBtn = document.querySelector(".submit-form-btn");
+
+    const formDialog = document.getElementById("userNameDialog")
+    startBtn.addEventListener('click', ()=>{
+        formDialog.showModal();
+        userUI.enableButtons();
+    })
+
+    submitBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        sendUserInfo(document.querySelector("#player1Name").value, document.querySelector("#player2Name").value);
+        formDialog.close();
+        userUI.startGame();
+        
+    })
+
+    const sendUserInfo = (player1, player2) =>{
+        userUI.setPlayerName(player1, player2)
+    }
+
+})();
 
 
-
-const startBtn = document.querySelector(".Start")
-const resetBtn = document.querySelector(".Reset")
-userUI.disableButton()
-startBtn.addEventListener('click', ()=>{
-    userUI.enableButtons()
-    userUI.startGame();
-   
-})
-
-resetBtn
