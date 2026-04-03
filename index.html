@@ -8,13 +8,13 @@
     <script src = "js.js" defer></script>
 </head>
 <body>
-    
+    <h2>Tic-Tac-Toe</h2>
     <main class = "main-wrapper">
         <div class ="btnContainer">
             <button class="button-74 Start" role="button">Start</button>
             <button class="button-74 Reset" role="button">Reset</button>
         </div>
-        <article class = "game-container">
+        <article class = "game-container" >
             <button data-id="0,0" class ="0,0 cell"></button>
             <button data-id="0,1"  class="0,1 cell"></button>
             <button data-id="0,2"  class="0,2 cell"></button>
@@ -24,20 +24,26 @@
             <button data-id="2,0"  class="2,0 cell"></button>
             <button data-id="2,1"  class="2,1 cell"></button>
             <button data-id="2,2"  class="2,2 cell "></button>
-            <p class = "gameInfo">Ready?</p>
+            <p class = "gameInfo">Ready? Press Start!</p>
         </article>
         <dialog id  = "userNameDialog">
+            <div class ="dialogWrapper">
                 <button commandfor= "userNameDialog" command="close" class = "closeDialog-btn">X</button>
                 <form action="" method="post" class = "userNameForm" >                      
                     <label for="player1Name">Player 1</label>
                     <input type="text", id="player1Name" name="Player1">
                     <label for="player2Name">Player2</label>
-                    <input type="text", id="player2Name"  name="Player2">
-                    <button type = "submit" class ="submit-form-btn"> Submit</button>
+                    <input type="text", id="player2Name"  name="Player2">        
                 </form>
-            </dialog>
+                <button type = "submit" class ="submit-form-btn"> Submit</button>
+            </div>
+                
+        </dialog>
         
     </main>
+    <footer class ="footer">
+            <a class = "footer-link" href="https://github.com/Shriyashzzz?tab=repositories"><img src="icons/github.svg" alt="github icon" class = "icons github"><p>Shriyashzzz</p></a>
+    </footer>
 
    
 

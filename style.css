@@ -353,9 +353,19 @@ template {
   --lilacAsh :#B0A1BA;
   --celadon: #B8E2C8;
 }
+body{
+  background-color: rgb(126, 186, 199, 0.2);
+  display:grid;
+  height: 100dvh;
+  width: 100%;
+  grid-template-rows : 0.5fr 4fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
 .main-wrapper{
-    background-color: var(--powderBlue);
-    height: 100dvh;
+    background-color: var(--powderBlue,);
+    grid-area: 2/ 1/ -1 / -1;
+    width: auto;
+    height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -364,19 +374,31 @@ template {
 
 }
 
+h2{
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin:0px;
+  padding: 0px;
+  align-self: center;
+  height: auto;
+  width: fit-content;
+  font-size: 4rem;
+}
+
 .btnContainer{
     display:flex;
     gap:3rem;
 }
 .game-container{
     background-color: rgb(143, 160, 175, 0.5);;
-    width:400px;
-    height: 400px;
+    width: 20rem;
+    height:20rem;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
     gap:0.2rem;
     padding: 0.2rem;
+
  
  
     
@@ -409,17 +431,27 @@ template {
 }
 
 
+.gameInfo{
+  margin:0px;
+  padding: 0px;
+  background-color: var(--celadon);
+  align-items: center;
+  grid-column:1 /-1 ;
+  display: flex;
+  justify-content: center;
+  height: 2rem;
+  width: 100%;
+  text-align: center;
 
-
-
+}
 
 
 /* CSS */
 .button-74 {
   background-color: #fbeee0;
   border: 2px solid #422800;
-  border-radius: 30px;
-  box-shadow: #422800 4px 4px 0 0;
+  border-radius: 3rem;
+  box-shadow: #422800 2px 2px 0 0;
   color: #422800;
   cursor: pointer;
   display: inline-block;
@@ -447,5 +479,108 @@ template {
   .button-74 {
     min-width: 120px;
     padding: 0 25px;
+  }
+}
+
+.icons{
+    width:40px;
+    height:40px;
+    transition: 0.3s ease-in-out;
+}
+
+.icons:hover{
+    transform: scale(1.4) ;
+}
+
+.footer{
+
+    width: 100%;
+    height: auto;
+    align-self: flex-end;
+    grid-column: 1/ -1;
+    background-color: var(--lilacAsh);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:#6d4e2ff8;
+    font-family: monospace;
+    transition: 0.6s all ease-in-out;
+
+
+    
+    .footer-link{
+        text-decoration: none;
+        color: black;
+        display:flex;
+        transition: 0.2s all ease-in-out;
+        gap:0.3rem;
+        transition: 0.2s all ease-out;
+
+        .icons.github {
+            transition: 0.2s all ease-out;
+        }
+
+        .icons.github:hover{
+            transform: rotate(360deg);
+        }
+    }
+
+    .footer-link:hover{
+        transform: scale(1.3);
+        
+    }
+}
+
+
+#userNameDialog{
+  border:2px dotted rgb(208, 123, 123) ;
+  padding: 0px;
+}
+.dialogWrapper{
+  font-size: 1rem;
+  padding:1rem;
+  display: flex;
+  height: 10rem;
+  font-size: medium;
+  background-color:whitesmoke;
+  flex-direction: column;
+  gap:2rem;
+
+  button{
+    border-radius: 10%;
+    background-color:aliceblue;
+  }
+  .closeDialog-btn{
+   align-self:  flex-end;
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 1rem;
+    
+  }
+
+  .userNameForm{
+
+    display:flex;
+    gap:1rem;
+    font-size: medium;
+
+
+    input:hover, input[type="radio"]:hover, input[type="radio"]:focus {
+      accent-color: #a76851;
+      border-color: rgba(207, 42, 222, 0.5);;
+    }
+
+    input:user-invalid, input[type="radio"]:user-invalid{
+        border-color: rgb(221, 31, 31);
+    }
+
+  }
+
+  .submit-form-btn{
+      font-family:Georgia, 'Times New Roman', Times, serif;
+      text-shadow: 10px grey;
+      letter-spacing: 0.1em;
+      font-size: larger;
+      
   }
 }

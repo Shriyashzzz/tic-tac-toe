@@ -108,7 +108,7 @@ const userUI = (function(){
         if(gameBoard.checkIfOccupied(hitIndex[0], hitIndex[1])){
             return;
         }
-        if(gameBoard.getEvenOddCounter() == 10){
+        if(gameBoard.getEvenOddCounter() >=9){
             disableButton();
             setPlayerinfo("Draw");
             return;
@@ -174,7 +174,8 @@ const uiController = (function(){
     startBtn.addEventListener('click', () =>{
         clearHitBoxes();
         formDialog.showModal();
-        userUI.enableButtons();
+        userUI.disableButton();
+        
     })
 
     submitBtn.addEventListener('click', function(e){
@@ -184,6 +185,7 @@ const uiController = (function(){
             document.querySelector("#player2Name").value
         );
         formDialog.close();
+        userUI.enableButtons();
         userUI.startGame();
     })
 
@@ -198,6 +200,7 @@ const uiController = (function(){
             button.textContent = "";
             button.disabled = false;
         });
+        userUI.setPlayerinfo(`${userUI.getUserPlayerName(1)} Turn`)
         gameBoard.resetBoardArray();
     }
 
