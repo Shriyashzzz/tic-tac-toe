@@ -116,7 +116,7 @@ const userUI = ( function(){
     const gameInfo= document.querySelector(".gameInfo");
     gameInfo.textContent = "Player 1 Turn"
     clickBtn.forEach((button) => button.addEventListener('click', ()=>{
-        let hitIndex = button.textContent.split(',');
+        let hitIndex = button.dataset.id.split(',');
         if(gameBoard.checkIfOccupied(hitIndex[0], hitIndex[1])){
             return
         }
@@ -128,17 +128,17 @@ const userUI = ( function(){
             if(even0ddCounter%2 !=0){
                 gameBoard.player1.inputValue(hitIndex[0], hitIndex[1])
                 even0ddCounter +=1
+                button.textContent = "X";
                 setPlayerinfo("Player 2 Turn")
                 // player1.inputValue()
             }else{
                 gameBoard.player2.inputValue(hitIndex[0], hitIndex[1])
+                button.textContent = "O";
                 even0ddCounter+=1
                 setPlayerinfo("Player 1 Turn")
         }
         }
         
-    
-    
     }))
 
     const setPlayerinfo = (info) =>{
