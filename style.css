@@ -523,38 +523,43 @@ h2{
 }
 
 
-#userNameDialog{
-  border:2px dotted rgb(208, 123, 123) ;
-  padding: 0px;
+#userNameDialog {
+    border: 2px dotted rgb(208, 123, 123);
+    padding: 0px;
+    max-width: 90vw;   
+    box-sizing: border-box;
 }
 .dialogWrapper{
   font-size: 1rem;
   padding:1rem;
   display: flex;
-  height: 10rem;
+  height: auto;
+  width: auto;
   font-size: medium;
   background-color:whitesmoke;
   flex-direction: column;
   gap:2rem;
+  overflow-x: auto;
 
   button{
     border-radius: 10%;
     background-color:aliceblue;
   }
-  .closeDialog-btn{
-   align-self:  flex-end;
-    height: fit-content;
-    width: fit-content;
-    margin-bottom: 1rem;
-    
-  }
 
+  
+  label{
+      display: block;
+    }
   .userNameForm{
+    display: flex;
+    flex-wrap: wrap;    /* inputs wrap to next line on small screens */
+    gap: 1rem;
+    font-size: 1.3rem;
 
-    display:flex;
-    gap:1rem;
-    font-size: medium;
 
+    label{
+      display: block;
+    }
 
     input:hover, input[type="radio"]:hover, input[type="radio"]:focus {
       accent-color: #a76851;
@@ -565,14 +570,22 @@ h2{
         border-color: rgb(221, 31, 31);
     }
 
-  }
+}
+  
+.closeDialog-btn{
+    width: fit-content;
+    height: auto;
+    align-self: flex-end;
+}
 
   .submit-form-btn{
       font-family:Georgia, 'Times New Roman', Times, serif;
-      text-shadow: 10px grey;
+      text-shadow: 1rem grey;
       letter-spacing: 0.1em;
-      font-size: larger;
       background-color: #9395D3;
+      width: fit-content;
+      height: fit-content;
+      align-self: center;
       
   }
 }
