@@ -5,24 +5,19 @@ const gameBoard = (function(){
     const boardArray = Array.from({length: 3}, () => Array(3).fill(undefined))
 
     const setValue = (id, row, col, playerOwnInputArray) =>{
-        if(checkIfOccupied(row, col)!= true){ // false means hit box was empty hence can aprrove hit 
-            if(id ==1 ){
-                boardArray[row][col] = "X"
-                playerOwnInputArray[row][col] = id;
-                return true; //true means hit box was unnoocupied and therefore allowed to hit
-            }
-
-            else if(id ==2){
-                boardArray[row][col] = "O"
-                playerOwnInputArray[row][col] = id;
-                return true;  //true means hit box was unnoocupied and therefore allowed to hit
-             }
-            
+        if(id ==1 ){
+            boardArray[row][col] = "X"
+            playerOwnInputArray[row][col] = id;
         }
-       
 
-       console.table(boardArray);
-    }
+        else if(id ==2){
+            boardArray[row][col] = "O"
+            playerOwnInputArray[row][col] = id;
+            }
+        console.table(boardArray);
+        }
+        
+
 
    
     const getValueAt = (row, col) =>{
@@ -30,9 +25,9 @@ const gameBoard = (function(){
         }
      const checkIfOccupied = (row, col)=>{
         if(getValueAt(row, col) === undefined){
-            return false;
-        }else{
-            return true;
+            return false; // false for unoccupiedhit index
+        }else{ 
+            return true; // true for occupied hit index
         }
 
     }
@@ -40,6 +35,7 @@ const gameBoard = (function(){
 
     const invokeIfWon = (id,winningIndexString ) =>{
         console.log(`player${id} won by choosing values at `,winningIndexString )
+        userUI.disableButton();
     }
     const checkIfWon = (id, givenBoard)  =>{
         console.log("checkIfWon starting");
@@ -92,8 +88,9 @@ const gameBoard = (function(){
         const playerOwnInputArray = Array.from({length: 3}, () => Array(3).fill(undefined));
 
         const inputValue = (arrayIndexRow, arrayIndexCol) => {
-            setValue(playerid,arrayIndexRow, arrayIndexCol, playerOwnInputArray);
-            checkIfWon(playerid, playerOwnInputArray)
+            setValue(playerid,arrayIndexRow, arrayIndexCol, playerOwnInputArray)
+            checkIfWon(playerid, playerOwnInputArray)      
+            
         }
         
         
@@ -105,36 +102,57 @@ const gameBoard = (function(){
     const player2 = createPlayer(2);
 
 
-    return{player1, player2};  // Documenting my mistakes with comments. Hence make sure it's in {} tags to ensure you are returning objects!
+    return{player1, player2, checkIfOccupied};  // Documenting my mistakes with comments. Hence make sure it's in {} tags to ensure you are returning objects!
  
 })(); // need () for IIFE
 
 
 
 
-const start = ( function(){
+const userUI = ( function(){
     
     let even0ddCounter = 1;
     const clickBtn = document.querySelectorAll(".cell");
+    const gameInfo= document.querySelector(".gameInfo");
+    gameInfo.textContent = "Player 1 Turn"
     clickBtn.forEach((button) => button.addEventListener('click', ()=>{
         let hitIndex = button.textContent.split(',');
-        if(even0ddCounter%2 !=0){
-            gameBoard.player1.inputValue(hitIndex[0], hitIndex[1])
-
-            even0ddCounter +=1
-            // player1.inputValue()
-        }else{
-            gameBoard.player2.inputValue(hitIndex[0], hitIndex[1])
-            even0ddCounter+=1
-
+        if(gameBoard.checkIfOccupied(hitIndex[0], hitIndex[1])){
+            return
         }
+        else if(even0ddCounter ==9){
+            disableButton();
+            setPlayerinfo("Draw")
+        }
+        else{
+            if(even0ddCounter%2 !=0){
+                gameBoard.player1.inputValue(hitIndex[0], hitIndex[1])
+                even0ddCounter +=1
+                setPlayerinfo("Player 2 Turn")
+                // player1.inputValue()
+            }else{
+                gameBoard.player2.inputValue(hitIndex[0], hitIndex[1])
+                even0ddCounter+=1
+                setPlayerinfo("Player 1 Turn")
+        }
+        }
+        
     
     
     }))
 
-    const checkHitOverlap = (player, row, col) =>
-        if 
+    const setPlayerinfo = (info) =>{
+        gameInfo.textContent = info;
+
     }
-    
+
+    const disableButton = () =>{
+        clickBtn.forEach((button) =>{
+            button.disabled =true;
+        })
+        console.log("game over")
+    }
+
+    return {disableButton};
 
 })();
