@@ -5,16 +5,36 @@ const gameBoard = (function(){
     const boardArray = Array.from({length: 3}, () => Array(3).fill(undefined))
 
     const setValue = (id, row, col, playerOwnInputArray) =>{
-        if(id ==1){
-            boardArray[row][col] = "X"
-            playerOwnInputArray[row][col] = id;
+        if(checkIfOccupied(row, col)!= true){ // false means hit box was empty hence can aprrove hit 
+            if(id ==1 ){
+                boardArray[row][col] = "X"
+                playerOwnInputArray[row][col] = id;
+                return true; //true means hit box was unnoocupied and therefore allowed to hit
+            }
 
-        }else if(id ==2){
-            boardArray[row][col] = "O"
-            playerOwnInputArray[row][col] = id;
+            else if(id ==2){
+                boardArray[row][col] = "O"
+                playerOwnInputArray[row][col] = id;
+                return true;  //true means hit box was unnoocupied and therefore allowed to hit
+             }
+            
+        }
+       
+
+       console.table(boardArray);
+    }
+
+   
+    const getValueAt = (row, col) =>{
+            return (boardArray[row][col])
+        }
+     const checkIfOccupied = (row, col)=>{
+        if(getValueAt(row, col) === undefined){
+            return false;
+        }else{
+            return true;
         }
 
-       console.table(playerOwnInputArray);
     }
 
 
@@ -68,7 +88,7 @@ const gameBoard = (function(){
     }
 
     function createPlayer(id){
-        const playerid = id
+        const playerid = id;
         const playerOwnInputArray = Array.from({length: 3}, () => Array(3).fill(undefined));
 
         const inputValue = (arrayIndexRow, arrayIndexCol) => {
@@ -76,9 +96,7 @@ const gameBoard = (function(){
             checkIfWon(playerid, playerOwnInputArray)
         }
         
-        const getValueAt = (arrayIndexRow, arrayIndexCol) =>{
-            return (boardArray[arrayIndexRow][arrayIndexCol])
-        }
+        
     
         return {playerid, inputValue, getValueAt} 
     }
@@ -92,8 +110,31 @@ const gameBoard = (function(){
 })(); // need () for IIFE
 
 
-gameBoard.player2.inputValue(0,0);
 
-gameBoard.player2.inputValue(1,1);
 
-gameBoard.player2.inputValue(2,2);
+const start = ( function(){
+    
+    let even0ddCounter = 1;
+    const clickBtn = document.querySelectorAll(".cell");
+    clickBtn.forEach((button) => button.addEventListener('click', ()=>{
+        let hitIndex = button.textContent.split(',');
+        if(even0ddCounter%2 !=0){
+            gameBoard.player1.inputValue(hitIndex[0], hitIndex[1])
+
+            even0ddCounter +=1
+            // player1.inputValue()
+        }else{
+            gameBoard.player2.inputValue(hitIndex[0], hitIndex[1])
+            even0ddCounter+=1
+
+        }
+    
+    
+    }))
+
+    const checkHitOverlap = (player, row, col) =>
+        if 
+    }
+    
+
+})();
