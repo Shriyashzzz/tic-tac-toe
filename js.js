@@ -109,50 +109,64 @@ const gameBoard = (function(){
 
 
 
-const userUI = ( function(){
-    
-    let even0ddCounter = 1;
+const userUI =( function(){
     const clickBtn = document.querySelectorAll(".cell");
-    const gameInfo= document.querySelector(".gameInfo");
-    gameInfo.textContent = "Player 1 Turn"
-    clickBtn.forEach((button) => button.addEventListener('click', ()=>{
-        let hitIndex = button.dataset.id.split(',');
-        if(gameBoard.checkIfOccupied(hitIndex[0], hitIndex[1])){
-            return
+    function startGame(){
+        let even0ddCounter = 1;
+        const gameInfo= document.querySelector(".gameInfo");
+        gameInfo.textContent = "Player 1 Turn"
+        clickBtn.forEach((button) => button.addEventListener('click', ()=>{
+            let hitIndex = button.dataset.id.split(',');
+            if(gameBoard.checkIfOccupied(hitIndex[0], hitIndex[1])){
+                return
+            }
+            else if(even0ddCounter ==9){
+                disableButton();
+                setPlayerinfo("Draw")
+            }
+            else{
+                if(even0ddCounter%2 !=0){
+                    gameBoard.player1.inputValue(hitIndex[0], hitIndex[1])
+                    even0ddCounter +=1
+                    button.textContent = "X";
+                    setPlayerinfo("Player 2 Turn")
+                    // player1.inputValue()
+                }else{
+                    gameBoard.player2.inputValue(hitIndex[0], hitIndex[1])
+                    button.textContent = "O";
+                    even0ddCounter+=1
+                    setPlayerinfo("Player 1 Turn")
+            }
+            }
+            
+        }))
+
+        const setPlayerinfo = (info) =>{
+            gameInfo.textContent = info;
+
         }
-        else if(even0ddCounter ==9){
-            disableButton();
-            setPlayerinfo("Draw")
-        }
-        else{
-            if(even0ddCounter%2 !=0){
-                gameBoard.player1.inputValue(hitIndex[0], hitIndex[1])
-                even0ddCounter +=1
-                button.textContent = "X";
-                setPlayerinfo("Player 2 Turn")
-                // player1.inputValue()
-            }else{
-                gameBoard.player2.inputValue(hitIndex[0], hitIndex[1])
-                button.textContent = "O";
-                even0ddCounter+=1
-                setPlayerinfo("Player 1 Turn")
-        }
-        }
+
         
-    }))
-
-    const setPlayerinfo = (info) =>{
-        gameInfo.textContent = info;
-
     }
-
     const disableButton = () =>{
-        clickBtn.forEach((button) =>{
-            button.disabled =true;
-        })
-        console.log("game over")
-    }
+            clickBtn.forEach((button) =>{
+                button.disabled =true;
+            })
+            console.log("game over")
+        }
 
-    return {disableButton};
+    return{startGame, disableButton}
+  
 
 })();
+
+
+
+
+const startBtn = document.querySelector(".Start")
+const resetBtn = document.querySelector(".Reset")
+
+startBtn.addEventListener('click', ()=>{
+    userUI.startGame();
+   
+})
