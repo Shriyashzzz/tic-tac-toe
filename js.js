@@ -169,7 +169,7 @@ const userUI =( function(){
         })
         
     }
-    return{startGame, disableButton, enableButtons, setPlayerName, setPlayerinfo}
+    return{startGame, disableButton, enableButtons, setPlayerName, setPlayerinfo, clickBtn}
   
 
 })();
@@ -197,6 +197,17 @@ const uiController = (function(){
     const sendUserInfo = (player1, player2) =>{
         userUI.setPlayerName(player1, player2)
     }
+
+    resetBtn.addEventListener("click", ()=>{
+        clearHitBoxes()
+    } )
+
+    const clearHitBoxes = () =>{
+        userUI.clickBtn.forEach((button) =>{
+            button.textContent=""
+        })
+    }
+
 
 })();
 
