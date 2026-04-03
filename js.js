@@ -111,7 +111,9 @@ const gameBoard = (function(){
 
 const userUI =( function(){
     const clickBtn = document.querySelectorAll(".cell");
+    
     function startGame(){
+
         let even0ddCounter = 1;
         const gameInfo= document.querySelector(".gameInfo");
         gameInfo.textContent = "Player 1 Turn"
@@ -153,9 +155,14 @@ const userUI =( function(){
                 button.disabled =true;
             })
             console.log("game over")
-        }
-
-    return{startGame, disableButton}
+    }
+    const enableButtons =() =>{
+        clickBtn.forEach((button) =>{
+                button.disabled =false;
+        })
+        
+    }
+    return{startGame, disableButton, enableButtons}
   
 
 })();
@@ -165,8 +172,11 @@ const userUI =( function(){
 
 const startBtn = document.querySelector(".Start")
 const resetBtn = document.querySelector(".Reset")
-
+userUI.disableButton()
 startBtn.addEventListener('click', ()=>{
+    userUI.enableButtons()
     userUI.startGame();
    
 })
+
+resetBtn
