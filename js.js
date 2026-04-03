@@ -21,7 +21,9 @@ const gameBoard = (function(){
         console.table(boardArray);
     }
 
-    const getEvenOddCounter = () => even0ddCounter;
+    const getEvenOddCounter = () => {
+        return even0ddCounter
+    }
     const incerementEvenOddCounter = () => even0ddCounter += 1;
 
     const getValueAt = (row, col) => boardArray[row][col];
