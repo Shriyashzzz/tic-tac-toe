@@ -122,7 +122,7 @@ const userUI = (function(){
             }
             gameBoard.incerementEvenOddCounter();
             button.textContent = "X";
-            setPlayerinfo(`${playerTwoName} Turn`);
+            setPlayerinfo(`${playerTwoName}'s Turn`);
         } else if(gameBoard.getEvenOddCounter() % 2 == 0){
             if(gameBoard.player2.inputValue(hitIndex[0], hitIndex[1]) ==true){
                 button.textContent = "O";
@@ -130,12 +130,12 @@ const userUI = (function(){
             }
             button.textContent = "O";
             gameBoard.incerementEvenOddCounter();
-            setPlayerinfo(`${playerOneName} Turn`);
+            setPlayerinfo(`${playerOneName}'s Turn`);
         }
     }))
 
     function startGame(){
-        gameInfo.textContent = `${playerOneName} Turn`;
+        gameInfo.textContent = `${playerOneName}'s Turn`;
     }
 
     const setPlayerinfo = (info) =>{

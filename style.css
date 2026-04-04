@@ -430,10 +430,12 @@ h2{
   grid-column:1 /-1 ;
   display: flex;
   justify-content: center;
+  font-family: monospace;
   height: 2rem;
   width: 100%;
+  font-size: 1.5rem;;
   text-align: center;
-
+  color:#058ffff7
 }
 
 
